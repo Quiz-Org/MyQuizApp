@@ -17,13 +17,19 @@
             android:exported="true"
             android:label="@string/app_name" />
         <activity
-            android:name="com.example.myQuizApp.EndQuizActivity"
+            android:name="com.example.myQuizApp.QuizCategoryActivity"
             android:exported="true"
             android:label="@string/app_name"/>
         <activity
             android:name="com.example.myQuizApp.QuestionsActivity"
             android:exported="true"
             android:label="@string/app_name"/>
+        <activity
+            android:name="com.example.myQuizApp.EndQuizActivity"
+            android:exported="true"
+            android:label="@string/app_name"/>
+
+
     </application>
 
 

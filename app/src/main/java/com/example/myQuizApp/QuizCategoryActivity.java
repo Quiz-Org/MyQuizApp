@@ -22,7 +22,7 @@ public class QuizCategoryActivity extends ListActivity{
    protected void onCreate(Bundle savedInstanceState){
 
        super.onCreate(savedInstanceState);
-       ListView listQuizes = getListView();
+       ListView listQuizzes = getListView();
 
        try {
 
@@ -33,7 +33,7 @@ public class QuizCategoryActivity extends ListActivity{
 
            CursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String[]{"NAME"}, new int[]{android.R.id.text1}, 0);
 
-           listQuizes.setAdapter(listAdapter);
+           listQuizzes.setAdapter(listAdapter);
 
        } catch (SQLiteException e){
 
