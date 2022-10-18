@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyQuizApp</string>
+    <string name="EndText" />
+    <string name="empty" />
+    <string name="slash" />
+    <string name="answerButton1" />
+    <string name="answerButton2" />
+    <string name="answerButton3" />
+    <string name="answerButton4" />
+    <string name="nextButtonText" />
+</resources>
