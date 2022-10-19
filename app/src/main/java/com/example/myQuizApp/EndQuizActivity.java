@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class EndQuizActivity extends Activity {
 
-   private ArrayList<Question> questions = new ArrayList<Question>();
+   private ArrayList<Question> questions = new ArrayList<>();
    private int correctAnswers;
    @Override
    protected void onCreate(Bundle savedInstanceState) {

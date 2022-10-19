@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class QuestionsActivity extends Activity {
-    //This class contains much of the code for the quiz. There is lots of android specific stuff that isnt important for this discussion, but there are some useful examples of OOP.
+    //This class contains much of the code for the quiz. There is lots of android specific stuff that isn't important for this discussion, but there are some useful examples of OOP.
     //P.S. This is using eclipse, rather than android studio. I have recovered these classes from old coursework, so while it might look broken, i promise it worked!
 
     //The word extends is key here. This tells us that this class inherits from the class Activity. This is a native android class, that contains lots of the nuts and bolts of an android app.
@@ -28,9 +28,9 @@ public class QuestionsActivity extends Activity {
     //That is all sorted in the Activity class that you are inheriting from.
 
     public static final String EXTRA_QUIZ_ID = "quizID";
-    private int questNumCurnt;
+    private int questNumCurrent;
     private int questNumTot;
-    private final ArrayList<Question> questions = new ArrayList<Question>();
+    private final ArrayList<Question> questions = new ArrayList<>();
     private int quizID;
     private final int[] answerIDs = new int[4];
 
@@ -43,7 +43,7 @@ public class QuestionsActivity extends Activity {
         setContentView(R.layout.activity_questions_activity);
         //* get quiz id from intent
         quizID = (Integer) getIntent().getExtras().get(EXTRA_QUIZ_ID);
-        questNumCurnt = -1;
+        questNumCurrent = -1;
 
         //* Cursor to get question num info from database
         try {
@@ -77,7 +77,7 @@ public class QuestionsActivity extends Activity {
     //More setting up the data from a DB, not important.
     private void loadData() {
 
-// loads all of the Questions Answers and their assosiated IDs from database
+// loads all of the Questions Answers and their associated IDs from database
         try {
 
             SQLiteOpenHelper databaseHelper = new DatabaseHelper(this);
@@ -111,7 +111,7 @@ public class QuestionsActivity extends Activity {
 
         } catch (SQLException e) {
 
-            Toast toast = Toast.makeText(this, "Database unavilable", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
 
         }
@@ -119,7 +119,7 @@ public class QuestionsActivity extends Activity {
 
     private void refreshView() {
 
-        questNumCurnt += 1;
+        questNumCurrent += 1;
 
         //Here is where my UI properly gets involved. With android lots of UI elements are already created, so if i want to use them, i can just create an instance!
         //I don't need to know how a 'radioGroup' works on the inside, or to make one myself, i just need to know how to interact with it from the outside.
@@ -130,7 +130,7 @@ public class QuestionsActivity extends Activity {
         answerGroup.clearCheck();
 
         TextView questionBox = (TextView) findViewById(R.id.questionBox);
-        questionBox.setText(questions.get(questNumCurnt).getQuestionText());
+        questionBox.setText(questions.get(questNumCurrent).getQuestionText());
 
         boolean[] empty = new boolean[4];
 
@@ -138,7 +138,7 @@ public class QuestionsActivity extends Activity {
 
             boolean placed = false;
 
-            while (placed == false) {
+            while (!placed) {
 
                 Random rand = new Random();
 
@@ -150,12 +150,12 @@ public class QuestionsActivity extends Activity {
                         if (!empty[0]) {
 
                             RadioButton answerButton = (RadioButton) findViewById(R.id.answerButton1);
-                            answerButton.setText(questions.get(questNumCurnt).getPossAnswer(i).getAnswerText());
+                            answerButton.setText(questions.get(questNumCurrent).getPossAnswer(i).getAnswerText());
 
                             empty[0] = true;
                             placed = true;
 
-                            answerIDs[0] = questions.get(questNumCurnt).getPossAnswer(i).getAnswerID();
+                            answerIDs[0] = questions.get(questNumCurrent).getPossAnswer(i).getAnswerID();
 
                         }
                         break;
@@ -165,12 +165,12 @@ public class QuestionsActivity extends Activity {
                         if (!empty[1]) {
 
                             RadioButton answerButton = (RadioButton) findViewById(R.id.answerButton2);
-                            answerButton.setText(questions.get(questNumCurnt).getPossAnswer(i).getAnswerText());
+                            answerButton.setText(questions.get(questNumCurrent).getPossAnswer(i).getAnswerText());
 
                             empty[1] = true;
                             placed = true;
 
-                            answerIDs[1] = questions.get(questNumCurnt).getPossAnswer(i).getAnswerID();
+                            answerIDs[1] = questions.get(questNumCurrent).getPossAnswer(i).getAnswerID();
 
                         }
                         break;
@@ -180,12 +180,12 @@ public class QuestionsActivity extends Activity {
                         if (!empty[2]) {
 
                             RadioButton answerButton = (RadioButton) findViewById(R.id.answerButton3);
-                            answerButton.setText(questions.get(questNumCurnt).getPossAnswer(i).getAnswerText());
+                            answerButton.setText(questions.get(questNumCurrent).getPossAnswer(i).getAnswerText());
 
                             empty[2] = true;
                             placed = true;
 
-                            answerIDs[2] = questions.get(questNumCurnt).getPossAnswer(i).getAnswerID();
+                            answerIDs[2] = questions.get(questNumCurrent).getPossAnswer(i).getAnswerID();
 
                         }
                         break;
@@ -194,12 +194,12 @@ public class QuestionsActivity extends Activity {
                         if (!empty[3]) {
 
                             RadioButton answerButton = (RadioButton) findViewById(R.id.answerButton4);
-                            answerButton.setText(questions.get(questNumCurnt).getPossAnswer(i).getAnswerText());
+                            answerButton.setText(questions.get(questNumCurrent).getPossAnswer(i).getAnswerText());
 
                             empty[3] = true;
                             placed = true;
 
-                            answerIDs[3] = questions.get(questNumCurnt).getPossAnswer(i).getAnswerID();
+                            answerIDs[3] = questions.get(questNumCurrent).getPossAnswer(i).getAnswerID();
 
                         }
                         break;
@@ -215,30 +215,19 @@ public class QuestionsActivity extends Activity {
 
         boolean checked = ((RadioButton) view).isChecked();
 
-        switch (view.getId()) {
-
-            case R.id.answerButton1:
-
-                if (checked)
-                    questions.get(questNumCurnt).setGivenAnswer(answerIDs[0]);
-                break;
-
-
-            case R.id.answerButton2:
-
-                if (checked)
-                    questions.get(questNumCurnt).setGivenAnswer(answerIDs[1]);
-                break;
-            case R.id.answerButton3:
-
-                if (checked)
-                    questions.get(questNumCurnt).setGivenAnswer(answerIDs[2]);
-                break;
-            case R.id.answerButton4:
-
-                if (checked)
-                    questions.get(questNumCurnt).setGivenAnswer(answerIDs[3]);
-                break;
+        int id = view.getId();
+        if (id == R.id.answerButton1) {
+            if (checked)
+                questions.get(questNumCurrent).setGivenAnswer(answerIDs[0]);
+        } else if (id == R.id.answerButton2) {
+            if (checked)
+                questions.get(questNumCurrent).setGivenAnswer(answerIDs[1]);
+        } else if (id == R.id.answerButton3) {
+            if (checked)
+                questions.get(questNumCurrent).setGivenAnswer(answerIDs[2]);
+        } else if (id == R.id.answerButton4) {
+            if (checked)
+                questions.get(questNumCurrent).setGivenAnswer(answerIDs[3]);
         }
 
     }
@@ -246,7 +235,7 @@ public class QuestionsActivity extends Activity {
     public void onNextButtonClicked(View view) {
 
 
-        if (questNumCurnt < questNumTot - 1) {
+        if (questNumCurrent < questNumTot - 1) {
 
             refreshView();
 

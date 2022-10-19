@@ -12,7 +12,7 @@ public class Question {
 	//This variable is very important. It stores the range of answers that can be given to a question.
 	//Notice that it is of type answer, this shows the massive potential of an object oriented approach. Firstly this means it can store many variables together in a neat, easily accessible format.
 	//But Answer is a fairly basic class. If this was to be done with a more complicated class, with many methods and variables, any number of complex problems can be solved fairly easily.
-	private final ArrayList<Answer> possAnswers = new ArrayList<Answer>();
+	private final ArrayList<Answer> possAnswers;
 	
 	
 	//Again, a simple constructor.
@@ -21,6 +21,7 @@ public class Question {
 		this.questionID = questionID;
 		this.questionText = questionText;
 
+		possAnswers = new ArrayList<Answer>();
 	}
 
 	//Again, my variables are private, so i need methods if i want to change them from outside the class. Notice how i have setter methods this time.

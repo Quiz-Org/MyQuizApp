@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/questionBox"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="212dp" />
 
     <RadioGroup
         android:id="@+id/answerGroup"
@@ -51,11 +51,10 @@
     </RadioGroup>
 
     <Button
+        android:id="@+id/nextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nextButton"
-        android:text="@string/nextButtonText"
         android:onClick="onNextButtonClicked"
-        />
+        android:text="@string/nextButtonText" />
 
 </LinearLayout>

@@ -18,17 +18,12 @@ public class TopLevelActivity extends Activity {
        setContentView(R.layout.activity_top_level_activity);
 
        // declare new instance of OnItemClickListener and override onItemClick method
-       AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener(){
+       AdapterView.OnItemClickListener itemClickListener = (listView, itemView, position, id) -> {
 
-           @Override
-           public void onItemClick(AdapterView<?> listView, View itemView, int position, long id) {
+           if(position == 0) {
 
-               if(position == 0) {
-
-                   Intent intent = new Intent(TopLevelActivity.this, QuizCategoryActivity.class);
-                   startActivity(intent);
-
-               }
+               Intent intent = new Intent(TopLevelActivity.this, QuizCategoryActivity.class);
+               startActivity(intent);
 
            }
 
