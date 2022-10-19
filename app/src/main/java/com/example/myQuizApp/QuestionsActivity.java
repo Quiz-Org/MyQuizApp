@@ -125,11 +125,11 @@ public class QuestionsActivity extends Activity {
         //I don't need to know how a 'radioGroup' works on the inside, or to make one myself, i just need to know how to interact with it from the outside.
         //The nitty gritty stuff is handled in the radioGroup class, so i don't need to worry about it!
         //Long story short, the possible answers are placed randomly in a UI element that the user can interact with, Most android users would recognise the result of a setup like this.
-        RadioGroup answerGroup = (RadioGroup) findViewById(R.id.answerGroup);
+        RadioGroup answerGroup = findViewById(R.id.answerGroup);
 
         answerGroup.clearCheck();
 
-        TextView questionBox = (TextView) findViewById(R.id.questionBox);
+        TextView questionBox = findViewById(R.id.questionBox);
         questionBox.setText(questions.get(questNumCurrent).getQuestionText());
 
         boolean[] empty = new boolean[4];
@@ -149,7 +149,7 @@ public class QuestionsActivity extends Activity {
 
                         if (!empty[0]) {
 
-                            RadioButton answerButton = (RadioButton) findViewById(R.id.answerButton1);
+                            RadioButton answerButton = findViewById(R.id.answerButton1);
                             answerButton.setText(questions.get(questNumCurrent).getPossAnswer(i).getAnswerText());
 
                             empty[0] = true;
@@ -164,7 +164,7 @@ public class QuestionsActivity extends Activity {
 
                         if (!empty[1]) {
 
-                            RadioButton answerButton = (RadioButton) findViewById(R.id.answerButton2);
+                            RadioButton answerButton = findViewById(R.id.answerButton2);
                             answerButton.setText(questions.get(questNumCurrent).getPossAnswer(i).getAnswerText());
 
                             empty[1] = true;
@@ -179,7 +179,7 @@ public class QuestionsActivity extends Activity {
 
                         if (!empty[2]) {
 
-                            RadioButton answerButton = (RadioButton) findViewById(R.id.answerButton3);
+                            RadioButton answerButton = findViewById(R.id.answerButton3);
                             answerButton.setText(questions.get(questNumCurrent).getPossAnswer(i).getAnswerText());
 
                             empty[2] = true;
@@ -193,7 +193,7 @@ public class QuestionsActivity extends Activity {
 
                         if (!empty[3]) {
 
-                            RadioButton answerButton = (RadioButton) findViewById(R.id.answerButton4);
+                            RadioButton answerButton = findViewById(R.id.answerButton4);
                             answerButton.setText(questions.get(questNumCurrent).getPossAnswer(i).getAnswerText());
 
                             empty[3] = true;

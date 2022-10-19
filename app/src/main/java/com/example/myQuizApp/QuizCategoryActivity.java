@@ -53,7 +53,7 @@ public class QuizCategoryActivity extends ListActivity{
    }
 
    @Override
-   protected void onListItemClick(ListView listView, View listQuizes, int position ,long id  ) {
+   protected void onListItemClick(ListView listView, View listQuizzes, int position ,long id  ) {
 
             Intent intent = new Intent(QuizCategoryActivity.this, QuestionsActivity.class);
             intent.putExtra(QuestionsActivity.EXTRA_QUIZ_ID,  (int)id);

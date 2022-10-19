@@ -17,11 +17,9 @@ public class Question {
 	
 	//Again, a simple constructor.
 	public Question(int questionID,String questionText){
-
 		this.questionID = questionID;
 		this.questionText = questionText;
-
-		possAnswers = new ArrayList<Answer>();
+		this.possAnswers = new ArrayList<>();
 	}
 
 	//Again, my variables are private, so i need methods if i want to change them from outside the class. Notice how i have setter methods this time.

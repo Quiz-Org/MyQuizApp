@@ -43,10 +43,10 @@ public class EndQuizActivity extends Activity {
 
    private void setScreen(){
 
-       TextView scoreView = (TextView) findViewById(R.id.scoreBox);
+       TextView scoreView = findViewById(R.id.scoreBox);
        scoreView.setText(String.valueOf(correctAnswers));
 
-       TextView questNumView = (TextView) findViewById(R.id.questionNumber);
+       TextView questNumView = findViewById(R.id.questionNumber);
        questNumView.setText(String.valueOf(questions.size()));
    }
 

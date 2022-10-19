@@ -62,7 +62,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 	       }
 	       if (oldVersion < 3){
 
-	           insertQuiz(db, "Bits and Bytes", "A short qui about basic data quantaties", 5);
+	           insertQuiz(db, "Bits and Bytes", "A short quiz about basic data quantities", 5);
 
 	           insertQuestion(db, 2, "What values can a bit hold?");
 	           insertQuestion(db, 2, "How many bits make a nibble?");
