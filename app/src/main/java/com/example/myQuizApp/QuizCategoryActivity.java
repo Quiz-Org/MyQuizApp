@@ -5,75 +5,79 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.List;
+import com.example.myquizapp.R;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class QuizCategoryActivity extends ListActivity{
 
    private SQLiteDatabase db;
    private Cursor cursor;
-
+   public ArrayList<QuizModel> quizzes = new ArrayList<QuizModel>();
    @Override
-   protected void onCreate(Bundle savedInstanceState){
+   protected void onCreate(Bundle savedInstanceState) {
 
        super.onCreate(savedInstanceState);
-       ListView listQuizzes = getListView();
 
-       EndPointInterface service = RetrofitClient.getRetrofitInstance().create(EndPointInterface.class);
-       Call<List<QuizModel>> call = service.getQuizzes();
-       call.enqueue(new Callback<List<QuizModel>>() {
+       Retrofit retrofit = new Retrofit.Builder()
+               .baseUrl("http://192.168.1.114/php_rest_myQuizApp/api/").client(getHttpClient()).addConverterFactory(GsonConverterFactory.create()).build();
+       JsonInterface service = retrofit.create(JsonInterface.class);
+       Call<ArrayList<QuizModel>> call = service.getQuizzes();
+       call.enqueue(new Callback<ArrayList<QuizModel>>() {
            @Override
-           public void onResponse(Call<List<QuizModel>> call, Response<List<QuizModel>> response) {
-               generateDataList(response.body());
+           public void onResponse(Call<ArrayList<QuizModel>> call, Response<ArrayList<QuizModel>> response) {
+               Log.e("onResponse","onResponse called");
+               if (!response.isSuccessful()) {
+                   QuizModel err = new QuizModel(99, "Something went wrong... code:", Integer.toString(response.code()));
+                   quizzes.add(err);
+               } else {
+                   quizzes = response.body();
+               }
            }
-
            @Override
-           public void onFailure(Call<List<QuizModel>> call, Throwable t) {
-               Toast.makeText(QuizCategoryActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+           public void onFailure(Call<ArrayList<QuizModel>> call, Throwable t) {
+               Log.e("onFailure","onFailure called");
+               QuizModel err = new QuizModel(99, "Something went wrong... code:", t.getMessage());
+               quizzes.add(err);
            }
        });
-       System.out.println();
 
-       /*try {
+       QuizAdapter adapter = new QuizAdapter(this, quizzes);
+       ListView listView = (ListView) findViewById(R.id.quizLV);
+       listView.setAdapter(adapter);
 
-           SQLiteOpenHelper databaseHelper = new DatabaseHelper(this);
-           db = databaseHelper.getReadableDatabase();
-
-           cursor = db.query("QUIZ", new String[]{"_id", "NAME"}, null, null, null, null, null);
-
-           CursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String[]{"NAME"}, new int[]{android.R.id.text1}, 0);
-
-           listQuizzes.setAdapter(listAdapter);
-
-       } catch (SQLiteException e){
-
-           Toast toast = Toast.makeText(this, "Database unavailable" + e.getMessage(), Toast.LENGTH_LONG);
-           toast.show();
-
-       } */
+       adapter.addAll(quizzes);
 
    }
+    public static OkHttpClient getHttpClient() {
 
-    private void generateDataList(List<QuizModel> quizList) {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
 
-   }
 
-    @Override
-   public void onDestroy(){
+        //TODO : remove logging interceptors as it is to be used for development purpose
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300,TimeUnit.SECONDS).
+                addInterceptor(logging).
+                build();
 
-       super.onDestroy();
-       cursor.close();
-       db.close();
-
-   }
+        return client;
+    }
 
    @Override
    protected void onListItemClick(ListView listView, View listQuizzes, int position ,long id  ) {

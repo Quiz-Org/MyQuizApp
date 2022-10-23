@@ -5,13 +5,18 @@ import com.google.gson.annotations.SerializedName;
 public class QuizModel {
 
     @SerializedName("_id")
-    int id;
+    public int id;
 
     @SerializedName("Name")
-    String name;
+    public String name;
 
     @SerializedName("Desc")
-    String desc;
+    public String desc;
+
+    public QuizModel(int id,String name, String desc){this.id = id;this.name=name;this.desc=desc;}
+    public QuizModel() {
+        ;
+    }
 
     public int get_id(){return id;}
     public String getName(){return name;}
