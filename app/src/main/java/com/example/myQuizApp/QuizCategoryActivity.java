@@ -1,17 +1,19 @@
 package com.example.myQuizApp;
 
 import android.app.ListActivity;
-import android.os.Bundle;
-import android.widget.ListView;
-import android.view.View;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.CursorAdapter;
-import android.widget.SimpleCursorAdapter;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QuizCategoryActivity extends ListActivity{
 
@@ -24,7 +26,22 @@ public class QuizCategoryActivity extends ListActivity{
        super.onCreate(savedInstanceState);
        ListView listQuizzes = getListView();
 
-       try {
+       EndPointInterface service = RetrofitClient.getRetrofitInstance().create(EndPointInterface.class);
+       Call<List<QuizModel>> call = service.getQuizzes();
+       call.enqueue(new Callback<List<QuizModel>>() {
+           @Override
+           public void onResponse(Call<List<QuizModel>> call, Response<List<QuizModel>> response) {
+               generateDataList(response.body());
+           }
+
+           @Override
+           public void onFailure(Call<List<QuizModel>> call, Throwable t) {
+               Toast.makeText(QuizCategoryActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+           }
+       });
+       System.out.println();
+
+       /*try {
 
            SQLiteOpenHelper databaseHelper = new DatabaseHelper(this);
            db = databaseHelper.getReadableDatabase();
@@ -40,10 +57,16 @@ public class QuizCategoryActivity extends ListActivity{
            Toast toast = Toast.makeText(this, "Database unavailable" + e.getMessage(), Toast.LENGTH_LONG);
            toast.show();
 
-       }
+       } */
 
    }
-   @Override
+
+    private void generateDataList(List<QuizModel> quizList) {
+
+
+   }
+
+    @Override
    public void onDestroy(){
 
        super.onDestroy();

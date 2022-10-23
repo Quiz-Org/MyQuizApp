@@ -19,13 +19,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class QuestionsActivity extends Activity {
-    //This class contains much of the code for the quiz. There is lots of android specific stuff that isn't important for this discussion, but there are some useful examples of OOP.
-    //P.S. This is using eclipse, rather than android studio. I have recovered these classes from old coursework, so while it might look broken, i promise it worked!
-
-    //The word extends is key here. This tells us that this class inherits from the class Activity. This is a native android class, that contains lots of the nuts and bolts of an android app.
-    //In android development most of the code you want to be run, especially code that is kicked off by something like a button press will be in a class that inherits from Activity.
-    //This means you can get on with what you want to do without worrying about how your code interacts with a touchscreen,or what happens when your user opens another app, then returns
-    //That is all sorted in the Activity class that you are inheriting from.
 
     public static final String EXTRA_QUIZ_ID = "quizID";
     private int questNumCurrent;
@@ -34,11 +27,8 @@ public class QuestionsActivity extends Activity {
     private int quizID;
     private final int[] answerIDs = new int[4];
 
-    //A slightly more complicated constructor, with lots of android stuff.
     protected void onCreate(Bundle savedInstanceState) {
 
-
-        //lots is setup here, the UI (content view in android) and a quiz is fetched from a database, not important here
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions_activity);
         //* get quiz id from intent
@@ -121,10 +111,6 @@ public class QuestionsActivity extends Activity {
 
         questNumCurrent += 1;
 
-        //Here is where my UI properly gets involved. With android lots of UI elements are already created, so if i want to use them, i can just create an instance!
-        //I don't need to know how a 'radioGroup' works on the inside, or to make one myself, i just need to know how to interact with it from the outside.
-        //The nitty gritty stuff is handled in the radioGroup class, so i don't need to worry about it!
-        //Long story short, the possible answers are placed randomly in a UI element that the user can interact with, Most android users would recognise the result of a setup like this.
         RadioGroup answerGroup = findViewById(R.id.answerGroup);
 
         answerGroup.clearCheck();
