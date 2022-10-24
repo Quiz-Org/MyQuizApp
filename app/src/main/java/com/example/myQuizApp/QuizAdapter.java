@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import com.example.myquizapp.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class QuizAdapter extends ArrayAdapter<QuizModel>{
 
-    public QuizAdapter(Context context, ArrayList<QuizModel> quiz){
+    public QuizAdapter(Context context, List<QuizModel> quiz){
         super(context,0,quiz);
     }
 
@@ -32,5 +32,4 @@ public class QuizAdapter extends ArrayAdapter<QuizModel>{
         tvDesc.setText(quiz.getDesc());
         return convertView;
     }
-
 }
