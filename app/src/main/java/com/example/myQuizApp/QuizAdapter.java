@@ -13,12 +13,15 @@ import java.util.List;
 
 public class QuizAdapter extends ArrayAdapter<QuizModel>{
 
+    //adapter to inflate ListView for QuizCatagoryActivity from list of QuizModels
     public QuizAdapter(Context context, List<QuizModel> quiz){
         super(context,0,quiz);
     }
 
+    //inflate view using quiz_item
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+
         QuizModel quiz = getItem(position);
 
         if(convertView == null){
@@ -30,6 +33,7 @@ public class QuizAdapter extends ArrayAdapter<QuizModel>{
 
         tvName.setText(quiz.getName());
         tvDesc.setText(quiz.getDesc());
+
         return convertView;
     }
 }
