@@ -7,11 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,17 +25,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class QuizCategoryActivity extends ListActivity{
 
-   public List<QuizModel> quizzes = new ArrayList<QuizModel>();
    @Override
    protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
+
+       Gson gson = new GsonBuilder().setLenient().create();
+
        Retrofit retrofit = new Retrofit.Builder()
-               .baseUrl("http://192.168.1.114/php_rest_myQuizApp/api/").client(getHttpClient()).addConverterFactory(GsonConverterFactory.create()).build();
+               .baseUrl("http://192.168.1.114/php_rest_myQuizApp/api/").client(getHttpClient()).addConverterFactory(GsonConverterFactory.create(gson)).build();
        JsonInterface service = retrofit.create(JsonInterface.class);
-       Call<List<QuizModel>> call = service.getQuizzes();
-       call.enqueue(new Callback<List<QuizModel>>() {
+       Call<ResponseBody> call = service.getQuizzes();
+       call.enqueue(new Callback<ResponseBody>() {
            @Override
-           public void onResponse(Call<List<QuizModel>> call, Response<List<QuizModel>> response) {
+           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                String test = response.getClass().getCanonicalName();
                Log.e("onResponse",test);
                if (!response.isSuccessful()) {
@@ -39,27 +45,22 @@ public class QuizCategoryActivity extends ListActivity{
                    List<QuizModel> quizzes = new ArrayList<QuizModel>();
                    quizzes.add(err);
                } else {
-                   List<QuizModel> quizzes = response.body();
-               }
+
+                   List<QuizModel> quizzes = new ArrayList<QuizModel>();
+                   //quizzes.addAll();
+                }
            }
            @Override
-           public void onFailure(Call<List<QuizModel>> call, Throwable t) {
+           public void onFailure(Call<ResponseBody> call, Throwable t) {
                Log.e("onFailure","onFailure called");
                QuizModel err = new QuizModel(99, "Something went wrong... code:", t.getMessage());
                List<QuizModel> quizzes = new ArrayList<QuizModel>();
                quizzes.add(err);
            }
        });
-       try {
-           Thread.sleep(10000);
-       } catch (InterruptedException e) {
-           e.printStackTrace();
-       }
+
        System.out.println();
-       //QuizAdapter adapter = new QuizAdapter(this, quizzes);
-       //ListView listView = (ListView) findViewById(R.id.quizLV);
-       //listView.setAdapter(adapter);
-       //adapter.addAll(quizzes);
+
    }
     public static OkHttpClient getHttpClient() {
 
