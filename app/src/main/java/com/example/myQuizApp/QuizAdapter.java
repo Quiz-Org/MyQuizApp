@@ -22,7 +22,7 @@ public class QuizAdapter extends ArrayAdapter<QuizModel>{
         QuizModel quiz = getItem(position);
 
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_quiz_category_activity,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.quiz_item,parent,false);
         }
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);

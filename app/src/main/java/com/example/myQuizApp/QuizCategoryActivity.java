@@ -1,12 +1,11 @@
 package com.example.myQuizApp;
 
-import android.app.ListActivity;
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 
+import com.example.myquizapp.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,21 +21,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuizCategoryActivity extends ListActivity{
+public class QuizCategoryActivity extends Activity {
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_quiz_category_activity);
 
        Gson gson = new GsonBuilder().setLenient().create();
 
        Retrofit retrofit = new Retrofit.Builder()
                .baseUrl("http://192.168.1.114/php_rest_myQuizApp/api/").client(getHttpClient()).addConverterFactory(GsonConverterFactory.create(gson)).build();
        JsonInterface service = retrofit.create(JsonInterface.class);
-       Call<ResponseBody> call = service.getQuizzes();
-       call.enqueue(new Callback<ResponseBody>() {
+       Call<ArrayList<QuizModel>> call = service.getQuizzes();
+       call.enqueue(new Callback<ArrayList<QuizModel>>() {
            @Override
-           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+           public void onResponse(Call<ArrayList<QuizModel>> call, Response<ArrayList<QuizModel>> response) {
                String test = response.getClass().getCanonicalName();
                Log.e("onResponse",test);
                if (!response.isSuccessful()) {
@@ -47,11 +46,15 @@ public class QuizCategoryActivity extends ListActivity{
                } else {
 
                    List<QuizModel> quizzes = new ArrayList<QuizModel>();
-                   //quizzes.addAll();
-                }
+                   quizzes.addAll(response.body());
+
+                   QuizAdapter adapter = new QuizAdapter(QuizCategoryActivity.this, quizzes);
+                   ListView listView = (ListView) findViewById(R.id.quizLV);
+                   listView.setAdapter(adapter);
+               }
            }
            @Override
-           public void onFailure(Call<ResponseBody> call, Throwable t) {
+           public void onFailure(Call<ArrayList<QuizModel>> call, Throwable t) {
                Log.e("onFailure","onFailure called");
                QuizModel err = new QuizModel(99, "Something went wrong... code:", t.getMessage());
                List<QuizModel> quizzes = new ArrayList<QuizModel>();
@@ -79,13 +82,4 @@ public class QuizCategoryActivity extends ListActivity{
         return client;
     }
 
-   @Override
-   protected void onListItemClick(ListView listView, View listQuizzes, int position ,long id  ) {
-
-            Intent intent = new Intent(QuizCategoryActivity.this, QuestionsActivity.class);
-            intent.putExtra(QuestionsActivity.EXTRA_QUIZ_ID,  (int)id);
-            startActivity(intent);
-
-
-   }
 }
