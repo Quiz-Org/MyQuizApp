@@ -1,11 +1,15 @@
 package com.example.myQuizApp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+
 import com.example.myquizapp.R;
+
 import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +32,7 @@ public class QuizCategoryActivity extends Activity {
    * */
    private void populateList(){
 
-       String url = "http://192.168.1.114/php_rest_myQuizApp/api/";
+       String url = "http://192.168.1.114:8080/";
 
 
        //setup retrofit with Gson and server url
@@ -68,8 +72,11 @@ public class QuizCategoryActivity extends Activity {
        QuizAdapter adapter = new QuizAdapter(QuizCategoryActivity.this, quizzes);
        ListView listView = (ListView) findViewById(R.id.quizLV);
        listView.setAdapter(adapter);
-
+       listView.setOnItemClickListener((parent, view, position, id) -> {
+           Intent intent = new Intent(QuizCategoryActivity.this, QuestionsActivity.class);
+           intent.putExtra(QuestionsActivity.EXTRA_QUIZ_ID,  (int)id);
+           startActivity(intent);
+       });
    }
-
 
 }

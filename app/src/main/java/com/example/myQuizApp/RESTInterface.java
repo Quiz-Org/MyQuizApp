@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface RESTInterface {
-    @GET("quiz/read.php")
+    @GET("quiz/all")
     Call<ArrayList<QuizModel>> getQuizzes();
 }

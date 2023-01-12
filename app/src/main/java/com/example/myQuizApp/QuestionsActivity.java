@@ -32,7 +32,7 @@ public class QuestionsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions_activity);
         //* get quiz id from intent
-        quizID = (Integer) getIntent().getExtras().get(EXTRA_QUIZ_ID);
+        quizID = (Integer) getIntent().getExtras().get(EXTRA_QUIZ_ID) + 1;
         questNumCurrent = -1;
 
         //* Cursor to get question num info from database
@@ -75,6 +75,8 @@ public class QuestionsActivity extends Activity {
 
             Cursor cursor = db.query("QUESTION", new String[]{"_id", "QUESTION_TEXT"}, "QUIZ_ID = ?", new String[]{Integer.toString(quizID)}, null, null, null);
 
+
+            int test = cursor.getCount();
             while (cursor.moveToNext()) {
 
                 Question question = new Question(cursor.getInt(0), cursor.getString(1));

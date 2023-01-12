@@ -11,10 +11,10 @@ public class QuizModel implements Serializable {
     @SerializedName("_id")
     private int id;
 
-    @SerializedName("Name")
+    @SerializedName("name")
     private String name;
 
-    @SerializedName("Desc")
+    @SerializedName("description")
     private String desc;
 
     public int getId() {return id;}
