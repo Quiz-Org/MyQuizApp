@@ -1,4 +1,4 @@
-package com.example.myQuizApp;
+package com.example.myQuizApp.Models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class QuizModel implements Serializable {
 
-    //model to build java objects from json returned from server.
+    //model to build quiz objects from json returned from server.
 
     @SerializedName("_id")
     private int id;

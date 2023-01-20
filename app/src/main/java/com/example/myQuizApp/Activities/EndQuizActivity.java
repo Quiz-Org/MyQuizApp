@@ -1,8 +1,11 @@
-package com.example.myQuizApp;
+package com.example.myQuizApp.Activities;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.TextView;
+
+import com.example.myQuizApp.GlobalData;
+import com.example.myQuizApp.Question;
 import com.example.myquizapp.R;
 
 import java.util.ArrayList;

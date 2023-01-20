@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.myQuizApp.Models.QuizModel;
 import com.example.myquizapp.R;
 
 import java.util.List;

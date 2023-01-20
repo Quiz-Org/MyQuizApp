@@ -1,4 +1,4 @@
-package com.example.myQuizApp;
+package com.example.myQuizApp.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+
+import com.example.myQuizApp.Models.QuizModel;
+import com.example.myQuizApp.QuizAdapter;
+import com.example.myQuizApp.RESTInterface;
 import com.example.myquizapp.R;
 
 import java.util.ArrayList;
@@ -46,21 +51,22 @@ public class QuizCategoryActivity extends Activity {
        Call<ArrayList<QuizModel>> call = service.getQuizzes();
        
        //send request with callback. Log failures or incorrect returns, if correct send return to setupView
-       call.enqueue(new Callback<ArrayList<QuizModel>>() {
+       call.enqueue(new Callback<>() {
            @Override
-           public void onResponse(Call<ArrayList<QuizModel>> call, Response<ArrayList<QuizModel>> response) {
+           public void onResponse(@NonNull Call<ArrayList<QuizModel>> call, @NonNull Response<ArrayList<QuizModel>> response) {
                if (!response.isSuccessful()) {
                    Log.e("Something went wrong... code:", Integer.toString(response.code()));
                } else {
 
                    //get ArrayList of QuizModels created by Gson from response body, past to setupView
-                   ArrayList<QuizModel> quizzes = new ArrayList<QuizModel>();
-                   quizzes.addAll(response.body());
+                   assert response.body() != null;
+                   ArrayList<QuizModel> quizzes = new ArrayList<>(response.body());
                    setupView(quizzes);
                }
            }
+
            @Override
-           public void onFailure(Call<ArrayList<QuizModel>> call, Throwable t) {
+           public void onFailure(@NonNull Call<ArrayList<QuizModel>> call, @NonNull Throwable t) {
                Log.e("Something went wrong... code:", t.getMessage());
            }
        });

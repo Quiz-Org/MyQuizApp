@@ -17,16 +17,16 @@
 
 
         <activity
-            android:name="com.example.myQuizApp.TopLevelActivity"
+            android:name="com.example.myQuizApp.Activities.TopLevelActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.myQuizApp.QuizCategoryActivity"
+            android:name="com.example.myQuizApp.Activities.QuizCategoryActivity"
             android:exported="true"/>
         <activity
-            android:name="com.example.myQuizApp.QuestionsActivity"
+            android:name="com.example.myQuizApp.Activities.QuestionsActivity"
             android:exported="true"/>
         <activity
-            android:name="com.example.myQuizApp.EndQuizActivity"
+            android:name="com.example.myQuizApp.Activities.EndQuizActivity"
             android:exported="true"/>
     </application>
 
