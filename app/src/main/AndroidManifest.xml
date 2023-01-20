@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,22 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyQuizApp"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:usesCleartextTraffic="true"
+        >
+
+
         <activity
-            android:name="com.example.myQuizApp.TopLevelActivity"
+            android:name="com.example.myQuizApp.Activities.TopLevelActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.myQuizApp.QuizCategoryActivity"
+            android:name="com.example.myQuizApp.Activities.QuizCategoryActivity"
             android:exported="true"/>
         <activity
-            android:name="com.example.myQuizApp.QuestionsActivity"
+            android:name="com.example.myQuizApp.Activities.QuestionsActivity"
             android:exported="true"/>
         <activity
-            android:name="com.example.myQuizApp.EndQuizActivity"
+            android:name="com.example.myQuizApp.Activities.EndQuizActivity"
             android:exported="true"/>
-
-
     </application>
-
 
 </manifest>

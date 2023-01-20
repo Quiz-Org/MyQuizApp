@@ -1,5 +1,8 @@
 package com.example.myQuizApp;
 
+import com.example.myQuizApp.Models.AnswersModel;
+import com.example.myQuizApp.Models.QuestionModel;
+
 import java.util.ArrayList;
 
 public class Question {
@@ -21,21 +24,24 @@ public class Question {
 		this.questionText = questionText;
 		this.possAnswers = new ArrayList<>();
 	}
+	public Question(QuestionModel quizIn, ArrayList<AnswersModel> answers) {
 
-	//Again, my variables are private, so i need methods if i want to change them from outside the class. Notice how i have setter methods this time.
+		this.questionID = quizIn.getId();
+		this.questionText = quizIn.getQuestionText();
+		this.possAnswers = new ArrayList<>();
+		for(AnswersModel answer: answers){
+			this.possAnswers.add(new Answer(answer));
+		}
+
+	}
+
+		//Again, my variables are private, so i need methods if i want to change them from outside the class. Notice how i have setter methods this time.
 	public void setGivenAnswer(int givenAnswerIn){givenAnswer = givenAnswerIn;}
 	public int getQuestionID() {return questionID;}
 	public String getQuestionText(){return questionText;}
 	public Answer getPossAnswer(int i){return possAnswers.get(i);}
 	public int getGivenAnswer(){return givenAnswer;}
-	
-	//This method adds another entry to the possAnswers array list, not important for this discussion. 
-	//Though notice that a variable of Answer can be passed in, being used just like any traditional data type.
-	public void addPossAnswer(Answer answer){
 
-		possAnswers.add(answer);
-
-	}
 	
 	
 	//This method checks if the user has given the correct answer to a question. In the real app it is called by a UI element.
