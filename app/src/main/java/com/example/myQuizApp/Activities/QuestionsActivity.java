@@ -86,6 +86,7 @@ public class QuestionsActivity extends Activity {
                     assert response.body() != null;
                     questions = new ArrayList<>();
                     for(QABundleModel QA : response.body()){questions.add(new Question(QA.getQuestion(),QA.getAnswers()));}
+                    questNumTot = questions.size();
                     refreshView();
                 }
             }
@@ -99,7 +100,7 @@ public class QuestionsActivity extends Activity {
 
     private void refreshView() {
 
-        questNumCurrent += 1;
+        questNumCurrent++;
 
         RadioGroup answerGroup = findViewById(R.id.answerGroup);
 

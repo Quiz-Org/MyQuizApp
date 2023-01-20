@@ -80,7 +80,7 @@ public class QuizCategoryActivity extends Activity {
        listView.setAdapter(adapter);
        listView.setOnItemClickListener((parent, view, position, id) -> {
            Intent intent = new Intent(QuizCategoryActivity.this, QuestionsActivity.class);
-           intent.putExtra(QuestionsActivity.EXTRA_QUIZ_ID,  (int)id);
+           intent.putExtra(QuestionsActivity.EXTRA_QUIZ_ID,  (int)id - 1);
            startActivity(intent);
        });
    }
