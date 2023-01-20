@@ -19,10 +19,6 @@ public class QuestionModel implements Serializable {
     @Expose
     private String questionText;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getId() {return id;}
     public Integer getQuizId() {return quizId;}
     public String getQuestionText() {return questionText;}

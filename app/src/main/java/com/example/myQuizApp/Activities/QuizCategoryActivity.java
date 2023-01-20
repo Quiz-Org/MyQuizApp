@@ -76,7 +76,7 @@ public class QuizCategoryActivity extends Activity {
    private void setupView(ArrayList<QuizModel> quizzes){
 
        QuizAdapter adapter = new QuizAdapter(QuizCategoryActivity.this, quizzes);
-       ListView listView = (ListView) findViewById(R.id.quizLV);
+       ListView listView = findViewById(R.id.quizLV);
        listView.setAdapter(adapter);
        listView.setOnItemClickListener((parent, view, position, id) -> {
            Intent intent = new Intent(QuizCategoryActivity.this, QuestionsActivity.class);

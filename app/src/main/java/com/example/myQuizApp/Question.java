@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 public class Question {
 
-	//Again these are variables that the class needs to store. Private so they are harder to accidentally change.
-	private final int questionID;
 	private final String questionText;
 	private int givenAnswer;
 
@@ -16,17 +14,10 @@ public class Question {
 	//Notice that it is of type answer, this shows the massive potential of an object oriented approach. Firstly this means it can store many variables together in a neat, easily accessible format.
 	//But Answer is a fairly basic class. If this was to be done with a more complicated class, with many methods and variables, any number of complex problems can be solved fairly easily.
 	private final ArrayList<Answer> possAnswers;
-	
-	
-	//Again, a simple constructor.
-	public Question(int questionID,String questionText){
-		this.questionID = questionID;
-		this.questionText = questionText;
-		this.possAnswers = new ArrayList<>();
-	}
+
 	public Question(QuestionModel quizIn, ArrayList<AnswersModel> answers) {
 
-		this.questionID = quizIn.getId();
+		//Again these are variables that the class needs to store. Private so they are harder to accidentally change.
 		this.questionText = quizIn.getQuestionText();
 		this.possAnswers = new ArrayList<>();
 		for(AnswersModel answer: answers){
@@ -37,7 +28,6 @@ public class Question {
 
 		//Again, my variables are private, so i need methods if i want to change them from outside the class. Notice how i have setter methods this time.
 	public void setGivenAnswer(int givenAnswerIn){givenAnswer = givenAnswerIn;}
-	public int getQuestionID() {return questionID;}
 	public String getQuestionText(){return questionText;}
 	public Answer getPossAnswer(int i){return possAnswers.get(i);}
 	public int getGivenAnswer(){return givenAnswer;}
