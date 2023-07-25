@@ -13,9 +13,7 @@ public interface RESTInterface {
     @GET("quiz/all")
     Call<ArrayList<QuizModel>> getQuizzes();
 
-    @GET("quiz/QA?quizID=")
+    @GET("quiz/QA?")
     Call<ArrayList<QABundleModel>> getQuestions(@Query("quizId") int quizId);
-
-
 
 }

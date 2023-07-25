@@ -48,7 +48,7 @@ public class QuestionsActivity extends Activity {
 
     private void populateList(Integer quizID){
 
-        String url = "http://192.168.1.114:8080/";
+        String url = "https://5owzqhw81f.execute-api.eu-west-2.amazonaws.com/default/";
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();

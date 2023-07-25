@@ -37,7 +37,7 @@ public class QuizCategoryActivity extends Activity {
    * */
    private void populateList(){
 
-       String url = "http://192.168.1.114:8080/";
+       String url = "https://5owzqhw81f.execute-api.eu-west-2.amazonaws.com/default/";
 
 
        //setup retrofit with Gson and server url
