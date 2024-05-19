@@ -1,6 +1,7 @@
 package com.example.myQuizApp.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,8 +38,8 @@ public class QuizCategoryActivity extends Activity {
    * */
    private void populateList(){
 
-       String url = "https://5owzqhw81f.execute-api.eu-west-2.amazonaws.com/default/";
-
+       Context context = getApplicationContext();
+       String url = context.getString(R.string.serverURL);
 
        //setup retrofit with Gson and server url
        Retrofit retrofit = new Retrofit.Builder()

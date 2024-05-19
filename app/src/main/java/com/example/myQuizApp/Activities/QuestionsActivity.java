@@ -1,6 +1,7 @@
 package com.example.myQuizApp.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,7 +49,8 @@ public class QuestionsActivity extends Activity {
 
     private void populateList(Integer quizID){
 
-        String url = "https://5owzqhw81f.execute-api.eu-west-2.amazonaws.com/default/";
+        Context context = getApplicationContext();
+        String url = context.getString(R.string.serverURL);
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
