@@ -29,8 +29,8 @@ public class QuizAdapter extends ArrayAdapter<QuizModel>{
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.quiz_item,parent,false);
         }
 
-        TextView tvName = (TextView) convertView.findViewById(R.id.name);
-        TextView tvDesc = (TextView) convertView.findViewById(R.id.description);
+        TextView tvName = convertView.findViewById(R.id.name);
+        TextView tvDesc = convertView.findViewById(R.id.description);
 
         tvName.setText(quiz.getName());
         tvDesc.setText(quiz.getDesc());

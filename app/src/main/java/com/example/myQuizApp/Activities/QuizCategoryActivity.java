@@ -1,6 +1,7 @@
 package com.example.myQuizApp.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,8 +38,8 @@ public class QuizCategoryActivity extends Activity {
    * */
    private void populateList(){
 
-       String url = "http://192.168.1.114:8080/";
-
+       Context context = getApplicationContext();
+       String url = context.getString(R.string.serverURL);
 
        //setup retrofit with Gson and server url
        Retrofit retrofit = new Retrofit.Builder()
@@ -76,7 +77,7 @@ public class QuizCategoryActivity extends Activity {
    private void setupView(ArrayList<QuizModel> quizzes){
 
        QuizAdapter adapter = new QuizAdapter(QuizCategoryActivity.this, quizzes);
-       ListView listView = (ListView) findViewById(R.id.quizLV);
+       ListView listView = findViewById(R.id.quizLV);
        listView.setAdapter(adapter);
        listView.setOnItemClickListener((parent, view, position, id) -> {
            Intent intent = new Intent(QuizCategoryActivity.this, QuestionsActivity.class);

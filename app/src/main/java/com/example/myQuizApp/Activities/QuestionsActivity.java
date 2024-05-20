@@ -1,6 +1,7 @@
 package com.example.myQuizApp.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,6 @@ import androidx.annotation.NonNull;
 
 import com.example.myQuizApp.GlobalData;
 import com.example.myQuizApp.Models.QABundleModel;
-import com.example.myQuizApp.Models.QuestionModel;
 import com.example.myQuizApp.Question;
 import com.example.myQuizApp.RESTInterface;
 import com.example.myquizapp.R;
@@ -35,30 +35,22 @@ public class QuestionsActivity extends Activity {
     private int questNumCurrent;
     private int questNumTot;
     private ArrayList<Question> questions;
-    private int quizID;
     private final int[] answerIDs = new int[4];
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions_activity);
-        //* get quiz id from intent
-        quizID = (Integer) getIntent().getExtras().get(EXTRA_QUIZ_ID) + 1;
+        int quizID = getIntent().getExtras().getInt("quizID") + 1;
         questNumCurrent = -1;
-
         populateList(quizID);
-
-    }
-    public void setQuestions(ArrayList<QuestionModel> qestionsIn){
-
-        System.out.println();
-        //this.questions = qestionsIn;
 
     }
 
     private void populateList(Integer quizID){
 
-        String url = "http://192.168.1.114:8080/";
+        Context context = getApplicationContext();
+        String url = context.getString(R.string.serverURL);
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -74,7 +66,7 @@ public class QuestionsActivity extends Activity {
         Call<ArrayList<QABundleModel>> call = service.getQuestions(quizID);
 
         //send request with callback. Log failures or incorrect returns, if correct send return to setupView
-        call.enqueue(new Callback<ArrayList<QABundleModel>>() {
+        call.enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<ArrayList<QABundleModel>> call, @NonNull Response<ArrayList<QABundleModel>> response) {
                 System.out.println();
@@ -85,11 +77,14 @@ public class QuestionsActivity extends Activity {
                     //get ArrayList of QuizModels created by Gson from response body, past to setupView
                     assert response.body() != null;
                     questions = new ArrayList<>();
-                    for(QABundleModel QA : response.body()){questions.add(new Question(QA.getQuestion(),QA.getAnswers()));}
+                    for (QABundleModel QA : response.body()) {
+                        questions.add(new Question(QA.getQuestion(), QA.getAnswers()));
+                    }
                     questNumTot = questions.size();
                     refreshView();
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<ArrayList<QABundleModel>> call, @NonNull Throwable t) {
                 Log.e("Something went wrong... code:", t.getMessage());
@@ -209,8 +204,7 @@ public class QuestionsActivity extends Activity {
 
     }
 
-    public void onNextButtonClicked(View view) {
-
+    public void onNextButtonClicked(@SuppressWarnings("unused") View view) {
 
         if (questNumCurrent < questNumTot - 1) {
 
@@ -218,9 +212,7 @@ public class QuestionsActivity extends Activity {
 
         } else {
 
-
             GlobalData.passQuestions = questions;
-
             endQuiz();
 
         }

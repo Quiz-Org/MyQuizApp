@@ -9,16 +9,7 @@ public class Answer {
 	private final String answerText;
 	private final Boolean correct;
 
-	// A simple constructor method, passing some data into the instance.
-	public Answer(int answerID, String answerText, Boolean correct) {
-
-		this.answerID = answerID;
-		this.answerText = answerText;
-		this.correct = correct;
-
-	}
-
-    public Answer(AnswersModel answer) {
+	public Answer(AnswersModel answer) {
 		this.answerID = answer.getId();
 		this.answerText = answer.getAnswerText();
 		this.correct = answer.getCorrect();
