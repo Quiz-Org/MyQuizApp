@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 public interface RESTInterface {
     @GET("quiz/all")
     Call<ArrayList<QuizModel>> getQuizzes();
 
-    @GET("quiz/QA?")
-    Call<ArrayList<QABundleModel>> getQuestions(@Query("quizId") int quizId);
+    @GET("quiz/{quizId}")
+    Call<ArrayList<QABundleModel>> getQuestions(@Path("quizId") int quizId);
 
 }
