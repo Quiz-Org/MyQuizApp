@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -41,7 +42,7 @@ public class QuestionsActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions_activity);
-        int quizID = getIntent().getExtras().getInt("quizID") + 1;
+        int quizID = Objects.requireNonNull(getIntent().getExtras()).getInt("quizID") + 1;
         questNumCurrent = -1;
         populateList(quizID);
 
@@ -87,7 +88,7 @@ public class QuestionsActivity extends Activity {
 
             @Override
             public void onFailure(@NonNull Call<ArrayList<QABundleModel>> call, @NonNull Throwable t) {
-                Log.e("Something went wrong... code:", t.getMessage());
+                Log.e("Something went wrong... code:", Objects.requireNonNull(t.getMessage()));
             }
 
         });

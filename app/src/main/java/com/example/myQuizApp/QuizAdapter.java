@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.example.myQuizApp.Models.QuizModel;
 import com.example.myquizapp.R;
 
@@ -20,8 +22,9 @@ public class QuizAdapter extends ArrayAdapter<QuizModel>{
     }
 
     //inflate view using quiz_item
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, @NonNull ViewGroup parent){
 
         QuizModel quiz = getItem(position);
 
@@ -32,6 +35,7 @@ public class QuizAdapter extends ArrayAdapter<QuizModel>{
         TextView tvName = convertView.findViewById(R.id.name);
         TextView tvDesc = convertView.findViewById(R.id.description);
 
+        assert quiz != null;
         tvName.setText(quiz.getName());
         tvDesc.setText(quiz.getDesc());
 

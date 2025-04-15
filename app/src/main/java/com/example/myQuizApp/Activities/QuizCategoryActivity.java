@@ -15,6 +15,7 @@ import com.example.myQuizApp.RESTInterface;
 import com.example.myquizapp.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,7 +69,7 @@ public class QuizCategoryActivity extends Activity {
 
            @Override
            public void onFailure(@NonNull Call<ArrayList<QuizModel>> call, @NonNull Throwable t) {
-               Log.e("Something went wrong... code:", t.getMessage());
+               Log.e("Something went wrong... code:", Objects.requireNonNull(t.getMessage()));
            }
        });
    }
